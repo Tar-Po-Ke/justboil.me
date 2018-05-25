@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/* download this file: http://docs.aws.amazon.com/aws-sdk-php/v3/download/aws.phar */
 require(APPPATH . 'libraries/aws.phar');
 
 /*
@@ -28,11 +29,11 @@ class Awss3functions
 {
     protected $instance = null;
 
-    protected $region = 'your aws region';
+    protected $region = 'your-aws-region'; // replace with your aws region
 
     protected $version = 'latest';
 
-    protected $bucketName = 'your aws bucket';
+    protected $bucketName = 'your-aws-bucket'; // replace with your aws s3 bucket
 
     public function __construct()
     {
