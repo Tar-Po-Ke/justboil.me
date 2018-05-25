@@ -7,6 +7,7 @@ require(APPPATH . 'libraries/aws.phar');
 /*
 Class Name: AWSS3 Functions
 author name: Nay Win (Tar Po Ke)
+email: naywinjob@gmail.com
 
 S3 - Example Usage
 -------------------------------
