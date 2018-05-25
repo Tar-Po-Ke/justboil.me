@@ -49,7 +49,11 @@ class Uploader extends CI_Controller {
 		$config['encrypt_name']		= $this->config->item('encrypt_name',	'uploader_settings');
 		$config['overwrite']		= $this->config->item('overwrite',		'uploader_settings');
 		$config['upload_path']		= $this->config->item('upload_path',	'uploader_settings');
-		
+		/* AWS S3 Properties - Start */
+		$config['aws_s3_upload'] = $this->config->item('aws_s3_upload', 'uploader_settings');
+		$config['img_path_key'] = $this->config->item('img_path_key', 'uploader_settings');
+		$config['local_file_remove'] = $this->config->item('local_file_remove', 'uploader_settings');
+		/* AWS S3 Properties - End */
 		if (!$conf['allow_resize'])
 		{
 			$config['max_width']	= $this->config->item('max_width',		'uploader_settings');
@@ -96,7 +100,35 @@ class Uploader extends CI_Controller {
 			// Add our stuff
 			$result['result']		= "file_uploaded";
 			$result['resultcode']	= 'ok';
+			$result['file_name_origin'] = $result['file_name'];
+			$result['file_name_local']	= $conf['img_path'] . '/' . $result['file_name'];
 			$result['file_name']	= $conf['img_path'] . '/' . $result['file_name'];
+			
+			/* Added For AWS S3 - Start */
+			if($config['aws_s3_upload'] === true) {
+				$this->load->library('awss3functions', $config);
+
+				$keyName = $config['img_path_key'] . '/' . $result['file_name_origin'];
+				$file = $result['file_name'];
+
+				$uploadS3 = $this->awss3functions->Upload($keyName, $file);
+				if($uploadS3 === true) {
+					$success = true;
+					$s3Image = $this->awss3functions->Download($keyName);
+					$result['file_name'] = $s3Image;
+
+					if($success === true && $config['local_file_remove'] === true) {
+						unlink($result['file_name_local']);
+					}
+				} else {
+					$error = true;
+					$error_msg = $uploadS3;
+					$result['result'] = 'file_upload can not do with S3.';
+					$result['resultcode'] = 'error';
+					$result['file_name'] = '';
+				}
+			}
+			/* Added For AWS S3 - End */
 			
 			// Output to user
 			$this->load->view('ajax_upload_result', $result);
