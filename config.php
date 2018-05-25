@@ -40,6 +40,15 @@
 	
 	$config['img_path'] = '/images'; // Relative to domain name
 	$config['upload_path'] = $_SERVER['DOCUMENT_ROOT'] . $config['img_path']; // Physical path. [Usually works fine like this]
+	
+/*-------------------------------------------------------------------
+| 
+| Using with AWS S3
+|
+| -------------------------------------------------------------------*/
+	$config['img_path_key'] = $config['img_path'];
+	$config['aws_s3_upload'] = false;
+	$config['local_file_remove'] = false;
 
 
 /*-------------------------------------------------------------------
