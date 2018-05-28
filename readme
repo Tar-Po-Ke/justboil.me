@@ -25,6 +25,7 @@ protected $bucketName = 'your-aws-bucket';
 
 Enjoy... :-)
 
+Original Repo: https://github.com/vikdiesel/justboil.me
 Docs & stuff at: http://justboil.me
 Donation gives you the right to remove attribution: http://justboil.me/donate/
 
