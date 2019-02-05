@@ -13,10 +13,10 @@ $config['aws_s3_upload'] = true;
 
 $config['local_file_remove'] = true;
 
-#### Please Download AWS S3 PHP SDK from this link and place in ci/libraries folder
+#### Please Download AWS S3 PHP SDK from this link and place in ci/application/libraries folder
 http://docs.aws.amazon.com/aws-sdk-php/v3/download/aws.phar
 
-#### Replace with Your aws s3 region and aws s3 bucket name in ci/libraries/Awss3functions.php
+#### Replace with Your aws s3 region and aws s3 bucket name in ci/application/libraries/Awss3functions.php
 
 protected $region = 'your-aws-region';
 
